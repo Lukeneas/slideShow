@@ -1,18 +1,26 @@
-let totalSlides = document.querySelectorAll('.slider--item').length;
+let c = (element)=>document.querySelector(element);
+let cs = (element)=>document.querySelectorAll(element);
+
+//qt slides
+let totalSlides = cs('.slider--item').length;
+//slide atual
 let currentSlide = 0;
 
-let sliderWidth = document.querySelector('.slider').clientWidth;
+let sliderWidth = c('.slider').clientWidth;
 
-document.querySelector('.slider--width').style.width = 
-    `${sliderWidth * totalSlides}px`;
+//width slider que gira
+c('.slider--width').style.width =`${sliderWidth * totalSlides}px`;
 
 document.querySelector('.slider--controls').style.width = 
     `${sliderWidth}px`;
+
+//height dos controls = sliders
 document.querySelector('.slider--controls').style.height = 
-    `${document.querySelector('.slider').clientHeight}px`;
+    `${c('.slider').clientHeight}px`;
 
 function goPrev() {
     currentSlide--;
+    //se currentSlide é o primeiro, vá para o último
     if(currentSlide < 0) {
         currentSlide = totalSlides - 1;
     }
@@ -20,6 +28,7 @@ function goPrev() {
 }
 function goNext() {
     currentSlide++;
+    //se currentSlide é o último, vá para o primeiro
     if(currentSlide > (totalSlides-1)) {
         currentSlide = 0;
     }
@@ -27,10 +36,13 @@ function goNext() {
 }
 
 function updateMargin() {
-    let sliderItemWidth = document.querySelector('.slider--item').clientWidth;
+    let sliderItemWidth = c('.slider--item').clientWidth;
+    //margin na div = nSlides * largura tela nav
     let newMargin = (currentSlide * sliderItemWidth);
-    document.querySelector('.slider--width').style.marginLeft = 
+    //jogando margin pro html
+    c('.slider--width').style.marginLeft = 
         `-${newMargin}px`;
 }
 
-setInterval(goNext, 5000);
+//mude imagem a cada 5s
+setInterval(goNext, 4000);
